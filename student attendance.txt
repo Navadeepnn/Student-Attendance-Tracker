@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        button {
+            padding: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        #exportBtn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #exportBtn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Student Attendance Tracking</h1>
+    </header>
+
+    <section>
+        <h2>Mark Attendance</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Attendance</th>
+                </tr>
+            </thead>
+            <tbody id="studentList">
+                <tr>
+                    <td>101</td>
+                    <td>Alice Johnson</td>
+                    <td>
+                        <select onchange="markAttendance(101, this.value)">
+                            <option value="Absent">Absent</option>
+                            <option value="Present">Present</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>102</td>
+                    <td>Bob Smith</td>
+                    <td>
+                        <select onchange="markAttendance(102, this.value)">
+                            <option value="Absent">Absent</option>
+                            <option value="Present">Present</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Attendance Report</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="attendanceReport"></tbody>
+        </table>
+        <button id="exportBtn" onclick="exportToExcel()">Export as Excel</button>
+    </section>
+
+    <script>
+        let attendanceData = {};
+
+        function markAttendance(studentId, status) {
+            let studentName = document.querySelector([data-id='${studentId}']);
+            attendanceData[studentId] = status;
+            updateReport();
+        }
+
+        function updateReport() {
+            let reportTable = document.getElementById('attendanceReport');
+            reportTable.innerHTML = '';
+
+            Object.keys(attendanceData).forEach(studentId => {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${studentId}</td>
+                    <td>${document.querySelector([data-id='${studentId}'])?.innerText || 'Unknown'}</td>
+                    <td>${attendanceData[studentId]}</td>
+                `;
+                reportTable.appendChild(row);
+            });
+        }
+
+        function exportToExcel() {
+            let table = document.querySelector('table').outerHTML;
+            let blob = new Blob([table], { type: 'application/vnd.ms-excel' });
+            let link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'attendance_report.xls';
+            link.click();
+        }
+    </script>
+
+</body>
+</html>
