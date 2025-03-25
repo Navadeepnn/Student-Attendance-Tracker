@@ -66,20 +66,20 @@
             </thead>
             <tbody id="studentList">
                 <tr>
-                    <td>101</td>
-                    <td>Alice Johnson</td>
+                    <td>AP23110010488</td>
+                    <td>NAVADEEP</td>
                     <td>
-                        <select onchange="markAttendance(101, this.value)">
+                        <select onchange="markAttendance(AP23110010488, this.value)">
                             <option value="Absent">Absent</option>
                             <option value="Present">Present</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td>102</td>
-                    <td>Bob Smith</td>
+                    <td>AP23110010494</td>
+                    <td>DHANUSH</td>
                     <td>
-                        <select onchange="markAttendance(102, this.value)">
+                        <select onchange="markAttendance(AP23110010494, this.value)">
                             <option value="Absent">Absent</option>
                             <option value="Present">Present</option>
                         </select>
